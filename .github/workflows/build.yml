@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   build-mac:
-    runs-on: macos-latest
+    runs-on: macos-10.15
     steps:
       - uses: actions/checkout@v2
         with:
@@ -47,7 +47,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y cmake libx11-dev libbz2-dev libgl-dev libglu1-mesa-dev g++-8 ninja-build libboost-all-dev
+          sudo apt-get install -y cmake libx11-dev libbz2-dev libgl-dev libglu1-mesa-dev g++-8 ninja-build
       - uses: actions/checkout@v2
         with:
           submodules: recursive
@@ -77,7 +77,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Install static boost
-        run: vcpkg install boost-functional:x64-windows-static boost-algorithm:x64-windows-static libpng:x64-windows-static
+        run: vcpkg install libpng:x64-windows-static
       - uses: actions/checkout@v2
         with:
           submodules: recursive
@@ -86,7 +86,7 @@ jobs:
       - name: CMake
         working-directory: build
         shell: cmd
-        run: cmake -G "Visual Studio 16 2019" -DVCPKG_TARGET_TRIPLET=x64-windows-static -A x64 -DCMAKE_TOOLCHAIN_FILE=c:/vcpkg/scripts/buildsystems/vcpkg.cmake ..
+        run: cmake -G "Visual Studio 16 2019" -DVCPKG_TARGET_TRIPLET=x64-windows-static -A x64 -DCMAKE_TOOLCHAIN_FILE=c:/vcpkg/scripts/buildsystems/vcpkg.cmake -DBOOST_ROOT=${BOOST_ROOT_1_72_0} ..
       - name: Setup MSBuild.exe
         uses: microsoft/setup-msbuild@v1.0.2
 
