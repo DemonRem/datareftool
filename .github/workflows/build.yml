@@ -153,6 +153,8 @@ jobs:
           mv xp11/mac_x64/datareftool.xpl xp11/64/mac.xpl
           mv xp11/win_x64/datareftool.xpl xp11/64/win.xpl
           rmdir xp11/lin_x64 xp11/mac_x64 xp11/win_x64
+          mv xp10/ DataRefTool_XP10_`date +%Y_%m_%d`
+          mv xp11/ DataRefTool_XP11_`date +%Y_%m_%d`
           zip -r DataRefTool_build.zip DataRefTool_XP10_`date +%Y_%m_%d`/64/ DataRefTool_XP11_`date +%Y_%m_%d`/64/ LICENSE INSTALL.txt
           unzip -l DataRefTool_build.zip
       - name: Notarize ZIP
